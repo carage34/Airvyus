@@ -16,10 +16,10 @@
 
         <item name="android:windowBackground">@color/primary</item>
 
-        <item name="colorControlNormal">@color/iron</item>
+        <item name="colorControlNormal">#6c6b6a</item>
         <item name="colorControlActivated">#1976d2</item>
-        <item name="colorControlHighlight">@color/black</item>
-        <item name="android:textColorHint">@color/iron</item>
+        <item name="colorControlHighlight">#6c6b6a</item>
+        <item name="android:textColorHint">#6c6b6a</item>
 
         <item name="colorButtonNormal">@color/primary_darker</item>
         <item name="android:colorButtonNormal">@color/primary_darker</item>
