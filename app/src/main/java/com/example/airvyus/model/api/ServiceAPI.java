@@ -13,4 +13,7 @@ public interface ServiceAPI {
     @POST("login")
     Call<RestLoginResponse> login(@Body LoginCredentials data);
 
+    @POST("register")
+    Call<RestRegisterReponse> register(@Body RegisterCredentials data);
+
 }
