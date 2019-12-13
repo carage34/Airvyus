@@ -1,5 +1,7 @@
 package com.example.airvyus.model.api;
 
+import java.util.List;
+
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -15,5 +17,9 @@ public interface ServiceAPI {
 
     @POST("register")
     Call<RestRegisterReponse> register(@Body RegisterCredentials data);
+
+    @POST("list")
+    Call<List<Account>> list();
+
 
 }

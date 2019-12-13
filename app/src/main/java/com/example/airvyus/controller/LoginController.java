@@ -1,6 +1,7 @@
 package com.example.airvyus.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -8,6 +9,8 @@ import android.widget.Toast;
 import com.example.airvyus.model.api.LoginCredentials;
 import com.example.airvyus.model.api.RestApiManager;
 import com.example.airvyus.model.api.RestLoginResponse;
+import com.example.airvyus.view.AccountsActivity;
+import com.example.airvyus.view.RegisterActivity;
 
 import java.io.IOException;
 
@@ -32,6 +35,8 @@ public class LoginController implements View.OnClickListener {
             restLoginResponse = callLogin.execute().body();
             if(restLoginResponse.getAuth().equals("success")) {
                 Toast.makeText(this.main, "Authentification réussi", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this.main, AccountsActivity.class);
+                v.getContext().startActivity(intent);
             } else {
                 Toast.makeText(this.main, restLoginResponse.getError(), Toast.LENGTH_LONG).show();
             }
