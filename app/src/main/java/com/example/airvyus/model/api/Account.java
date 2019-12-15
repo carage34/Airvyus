@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Account {
 
+    public Account() {
+        this.connected = false;
+    }
+
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -23,6 +27,18 @@ public class Account {
     @SerializedName("url")
     @Expose
     private String url;
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
+    }
+
+    @SerializedName("connected")
+    @Expose
+    private boolean connected;
 
     public Integer getId() {
         return id;

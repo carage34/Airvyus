@@ -1,11 +1,14 @@
 package com.example.airvyus.controller;
 
+import android.content.Context;
 import android.widget.Toast;
 
 import com.example.airvyus.model.api.Account;
+import com.example.airvyus.model.api.DeletingData;
 import com.example.airvyus.model.api.RegisterCredentials;
 import com.example.airvyus.model.api.RestAccountResponse;
 import com.example.airvyus.model.api.RestApiManager;
+import com.example.airvyus.model.api.RestDeleteAccountResponse;
 import com.example.airvyus.model.api.RestRegisterReponse;
 
 import java.io.IOException;
@@ -32,4 +35,22 @@ public class AccountController {
         }
         return null;
     }
+
+    public void deleteAccount (String id, Context context) {
+        RestDeleteAccountResponse restDeleteAccountResponse = null;
+        Call<RestDeleteAccountResponse> callDelete = RestApiManager.getAPI().deleteAccount(new DeletingData(id));
+        try {
+            restDeleteAccountResponse = callDelete.execute().body();
+            //if(restDeleteAccountResponse.getStatus().equals("success")) {
+                Toast.makeText(context, "Suppression effectué", Toast.LENGTH_LONG).show();
+            //} else {
+                //Toast.makeText(context, "Erreur lors de la suppression", Toast.LENGTH_LONG).show();
+            //}
+
+        } catch(IOException e) {
+
+        }
+    }
+
+
 }

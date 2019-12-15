@@ -2,13 +2,21 @@ package com.example.airvyus.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Intent;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,18 +24,22 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.airvyus.R;
 import com.example.airvyus.model.api.Account;
 import com.example.airvyus.view.AccountsActivity;
+import com.example.airvyus.view.MyPopupMenu;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    private List<Account> values;
+
+    public static List<Account> values;
     private AccountsActivity context;
+    private MenuItemController mic;
+    private RecyclerView recyclerView;
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
         // each data item is just a string in this case
-        public TextView txtHeader;
-        public TextView txtFooter;
-        public View layout;
+        private TextView txtHeader;
+        private TextView txtFooter;
+        private View layout;
         private ImageView img;
 
 
@@ -37,10 +49,33 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             txtHeader = (TextView) v.findViewById(R.id.firstLine);
             txtFooter = (TextView) v.findViewById(R.id.secondLine);
             img = (ImageView)v.findViewById(R.id.icon);
+
+            v.setOnCreateContextMenuListener(this);
+
         }
         public ImageView getImage() {
             return this.img;
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            contextMenu.setHeaderTitle("Action");
+            MenuItem connecter = contextMenu.add(Menu.NONE, view.getId(), 1, "Connecter");
+            MenuItem modifier = contextMenu.add(Menu.NONE, view.getId(), 2, "Modifier");
+            MenuItem supprimer = contextMenu.add(Menu.NONE, view.getId(), 3, "Supprimer");
+            ViewHolder holder = (ViewHolder) recyclerView.getChildViewHolder(view);
+            Intent data = new Intent();
+            data.putExtra("position", values.get(holder.getAdapterPosition()).getId());
+            connecter.setIntent(data);
+            modifier.setIntent(data);
+            supprimer.setIntent(data);
+            connecter.setOnMenuItemClickListener(mic);
+            modifier.setOnMenuItemClickListener(mic);
+            supprimer.setOnMenuItemClickListener(mic);
+
+        }
+
+
     }
 
 
@@ -56,9 +91,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<Account> myDataset, AccountsActivity act) {
+    public MyAdapter(List<Account> myDataset, AccountsActivity act, MenuItem c, MenuItem m, MenuItem s, RecyclerView recyclerView) {
         values = myDataset;
         this.context = act;
+        this.recyclerView = recyclerView;
+        mic = new MenuItemController(values, context, this);
     }
 
     // Create new views (invoked by the layout manager)
@@ -75,6 +112,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         return vh;
     }
 
+    interface OnItemEventListener {
+        void onMoreClicked(View v, int position);
+    }
+
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
@@ -82,12 +123,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         // - replace the contents of the view with that element
         final Account name = values.get(position);
         holder.txtHeader.setText(name.getNom());
-        holder.txtHeader.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                remove(position);
-            }
-        });
+
 
         holder.txtFooter.setText("Position: " + name.getPosition());
         Glide.with(this.context.getBaseContext())
@@ -100,5 +136,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return values.size();
+    }
+
+    public void removeAt(int position) {
+        for(int i=0; i<values.size(); i++) {
+            if(values.get(i).getId() == position) {
+                remove(i);
+                return;
+            }
+        }
+        values.remove(position);
     }
 }

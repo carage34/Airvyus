@@ -21,5 +21,8 @@ public interface ServiceAPI {
     @POST("list")
     Call<List<Account>> list();
 
+    @POST("deleteaccountandroid")
+    Call<RestDeleteAccountResponse> deleteAccount(@Body DeletingData data);
+
 
 }
