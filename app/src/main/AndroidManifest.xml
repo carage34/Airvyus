@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".view.AccountsActivity"></activity>
+        <activity android:name=".view.EditActivity"
+            android:theme="@style/AppTheme.Dark"></activity>
         <activity
             android:name=".view.RegisterActivity"
             android:theme="@style/AppTheme.Dark" />

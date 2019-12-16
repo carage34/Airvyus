@@ -147,4 +147,35 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
         values.remove(position);
     }
+
+    public void updateList(List<Account> list) {
+
+    }
+
+    public String getEmail(int id) {
+        for(int i=0;i<values.size(); i++) {
+            if(values.get(i).getId() == id) {
+                return values.get(i).getEmail();
+            }
+        }
+        return null;
+    }
+
+    public String getPseudo(int id) {
+        for(int i=0;i<values.size(); i++) {
+            if(values.get(i).getId() == id) {
+                return values.get(i).getNom();
+            }
+        }
+        return null;
+    }
+
+    public String getPosition(int id) {
+        for(int i=0;i<values.size(); i++) {
+            if(values.get(i).getId() == id) {
+                return values.get(i).getPosition();
+            }
+        }
+        return null;
+    }
 }

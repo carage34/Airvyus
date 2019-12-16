@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -48,6 +49,18 @@ public class AccountsActivity extends AppCompatActivity {
         supprimer = findViewById(R.id.supprimer);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new MyAdapter(accountList, this, connecter, modifier, supprimer, recyclerView);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    public void startForResult(Intent intent) {
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ac = new AccountController();
+        accountList = ac.getAccounts();
         mAdapter = new MyAdapter(accountList, this, connecter, modifier, supprimer, recyclerView);
         recyclerView.setAdapter(mAdapter);
     }
