@@ -32,6 +32,10 @@ public class MenuItemController implements MenuItem.OnMenuItemClickListener {
             ac.deleteAccount(position+"", context);
             myAdapter.removeAt(position);
         }
+
+        if(item.getTitle()=="Modifier") {
+
+        }
         return true;
     }
 }

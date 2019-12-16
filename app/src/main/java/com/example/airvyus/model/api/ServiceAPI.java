@@ -24,5 +24,8 @@ public interface ServiceAPI {
     @POST("deleteaccountandroid")
     Call<RestDeleteAccountResponse> deleteAccount(@Body DeletingData data);
 
+    @POST("edit")
+    Call<RestEditResponse> editAccount(@Body EditingAccount data);
+
 
 }
