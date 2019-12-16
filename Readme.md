@@ -14,7 +14,6 @@ Le but étant de pouvoir connecter ces comptes pour qu'ils soient AFK sur un ser
 - Appels REST
 - Ecrans : 4 activités
 - Affichage d'une liste dans un RecyclerView (Liste des comptes Minecraft)
-- Affichage du détail d'un item de la liste
 - Persistence des données (comptes minecraft et comptes utilisateurs) via une base de données mysql
 - Transition entre les deux activités
 - Context Menu (en restant appuyé sur un item de la liste)
