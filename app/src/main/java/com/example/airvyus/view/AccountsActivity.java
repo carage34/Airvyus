@@ -3,6 +3,7 @@ package com.example.airvyus.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +12,12 @@ import android.view.MenuItem;
 import com.example.airvyus.R;
 import com.example.airvyus.controller.AccountController;
 import com.example.airvyus.controller.MyAdapter;
+import com.example.airvyus.controller.PageAdapter;
 import com.example.airvyus.model.api.Account;
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
 import com.github.nkzawa.socketio.client.Socket;
+import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,15 +45,23 @@ public class AccountsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_accounts);
         ac = new AccountController();
         accountList = ac.getAccounts();
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        connecter = findViewById(R.id.connecter);
-        modifier = findViewById(R.id.modifier);
-        supprimer = findViewById(R.id.supprimer);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new MyAdapter(accountList, this, connecter, modifier, supprimer, recyclerView);
-        recyclerView.setAdapter(mAdapter);
+        configureViewPagerAndTabs(accountList);
+    }
+
+    public void configureViewPagerAndTabs(List<Account> accountList){
+        //Get ViewPager from layout
+        ViewPager pager = (ViewPager)findViewById(R.id.viewPager);
+        //Set Adapter PageAdapter and glue it together
+        PageAdapter pa = new PageAdapter(getSupportFragmentManager());
+        pa.setList(accountList, this);
+        pager.setAdapter(pa);
+
+        //Get TabLayout from layout
+        TabLayout tabs= (TabLayout)findViewById(R.id.tablayout);
+        //Glue TabLayout and ViewPager together
+        tabs.setupWithViewPager(pager);
+        //Design purpose. Tabs have the same width
+        tabs.setTabMode(TabLayout.MODE_FIXED);
     }
 
     public void startForResult(Intent intent) {
@@ -61,7 +72,7 @@ public class AccountsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ac = new AccountController();
         accountList = ac.getAccounts();
-        mAdapter = new MyAdapter(accountList, this, connecter, modifier, supprimer, recyclerView);
+        mAdapter = new MyAdapter(accountList, this, recyclerView);
         recyclerView.setAdapter(mAdapter);
     }
 }

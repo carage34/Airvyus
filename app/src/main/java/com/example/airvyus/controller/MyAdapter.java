@@ -91,7 +91,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(List<Account> myDataset, AccountsActivity act, MenuItem c, MenuItem m, MenuItem s, RecyclerView recyclerView) {
+    public MyAdapter(List<Account> myDataset, AccountsActivity act, RecyclerView recyclerView) {
         values = myDataset;
         this.context = act;
         this.recyclerView = recyclerView;
