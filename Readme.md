@@ -29,19 +29,29 @@ Le but étant de pouvoir connecter ces comptes pour qu'ils soient AFK sur un ser
 
 - Ecran de connexion (Affichage d'un Toast qui indique si la connexion est réussi ou si le mot de passe est incorrect)
 
-<img src="premier.png" alt="streamer" width="30%">
+<img src="login.png" alt="streamer" width="30%">
 
 ### Deuxième activité 
 
 - Ecran d'inscription
 
-<img src="deuxieme.png" alt="stream details" width="30%">
+<img src="register.png" alt="stream details" width="30%">
 
-### Premier fragment
+### Troisième activité / Premier fragment
 
 - Affichage des comptes minecraft
 
-### Deuxième fragment
+<img src="liste.png" alt="stream details" width="30%">
+
+- Context Menu
+<img src="context_menu.png" alt="stream details" width="30%">
+
+### Quatrième activité / Deuxième fragment
 
 - Je n'ai pas eu le temps de l'implementer. Je comptais afficher la liste des utilisateurs
+
+<img src="second_fragment.png" alt="stream details" width="30%">
+
+
+
 
